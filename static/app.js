@@ -4,7 +4,9 @@
  */
 
 // API Configuration
-const API_BASE_URL = 'http://localhost:5001/api';
+// use relative paths so that the frontend works whether running locally or
+// when the service is deployed behind a custom domain (e.g. Render).
+const API_BASE_URL = '/api';
 
 // Debounce function to limit API calls
 function debounce(func, wait) {

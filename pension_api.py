@@ -1,3 +1,4 @@
+
 """
 API Layer for Pension Calculator
 Tier 2: RESTful API using Flask
@@ -107,22 +108,28 @@ def health_check():
 
 
 if __name__ == '__main__':
-    # Create static directory if it doesn't exist
+    # ensure static folder exists (useful in some deployment environments)
     os.makedirs('static', exist_ok=True)
-    
+
+    # allow Render (and other platforms) to specify a port via environment
+    port = int(os.environ.get('PORT', 5001))
+    # debug mode can be toggled with ENV variable, default to False in production
+    debug = os.environ.get('DEBUG', 'False').lower() in ('1', 'true', 'yes')
+
     print("\n" + "="*60)
     print("🚀 Pension Calculator API Server Starting...")
     print("="*60)
-    print("📊 Backend: Python Calculation Engine")
-    print("🔗 API Layer: Flask RESTful API")
-    print("🌐 Frontend: HTML5 + CSS + JavaScript")
+    print(f"📊 Backend: Python Calculation Engine")
+    print(f"🔗 API Layer: Flask RESTful API")
+    print(f"🌐 Frontend: HTML5 + CSS + JavaScript")
     print("="*60)
-    print("\n🌐 Open your browser and navigate to:")
-    print("   http://localhost:5001")
+    print(f"\n🌐 Application will listen on port {port} (may be overridden by Render)")
     print("\n📡 API Endpoints:")
-    print("   POST http://localhost:5001/api/calculate/group")
-    print("   POST http://localhost:5001/api/calculate/individual")
-    print("   GET  http://localhost:5001/api/health")
+    print(f"   POST  /api/calculate/group")
+    print(f"   POST  /api/calculate/individual")
+    print(f"   POST  /api/reverse/group")
+    print(f"   POST  /api/reverse/individual")
+    print(f"   GET   /api/health")
     print("="*60 + "\n")
-    
-    app.run(debug=True, host='0.0.0.0', port=5001)
+
+    app.run(debug=debug, host='0.0.0.0', port=port)

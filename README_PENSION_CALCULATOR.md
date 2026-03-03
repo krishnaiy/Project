@@ -89,6 +89,10 @@ Navigate to: **http://localhost:5001**
   - Present value calculations
   - Inflation-adjusted values
 
+## 🚢 Deployment & Hosting
+
+The application can be deployed without modification to any standard Python web host such as Render (free tier) or Heroku. See **`RENDER_DEPLOYMENT.md`** for step‑by‑step instructions and required configuration files (`requirements.txt`, `Procfile`).
+
 ## 🎯 Key Improvements Over Previous Version
 
 1. **✅ Real-time Dynamic Updates**: Sliders trigger immediate API calls and recalculations
