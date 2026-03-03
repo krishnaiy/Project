@@ -19,6 +19,7 @@ This document explains how to take the existing Flask‑based pension calculator
    Flask==3.1.2
    Flask-CORS==6.0.2
    gunicorn==20.1.0
+   setuptools>=67.0.0   # needed by gunicorn (provides pkg_resources)
    ```
    These are the Python dependencies needed by the app.
 
@@ -44,6 +45,10 @@ This document explains how to take the existing Flask‑based pension calculator
    - **Environment**: `Python 3` (Render will detect automatically)
    - **Build Command**: leave blank (Render auto-runs `pip install -r requirements.txt`)
    - **Start Command**: leave blank if you have a `Procfile`; otherwise `gunicorn pension_api:app`.
+     > ⚠️ If the deploy log shows `gunicorn app:app` (and fails with `pkg_resources`), you need to
+     either set the start command manually to `gunicorn pension_api:app` or make sure the `Procfile`
+     at the repo root contains the correct entry.  The missing `pkg_resources` error is fixed by
+     adding `setuptools` to `requirements.txt` (see above).
    - **Instance Type**: `Free` (shared); the app is lightweight.
    - **Region**: choose your preferred region.
 5. Click **Create Web Service** and wait for the first deploy to finish.
