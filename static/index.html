@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Defined Benefits Pension Premium Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💼 Defined Benefits Pension Premium Calculator <span class="status-mini">● Live</span></h1>
+        </header>
+
+        <div class="main-content">
+            <!-- Left Panel: Group Premium Calculator -->
+            <div class="panel group-panel">
+                <div class="panel-header">
+                    <h2>📊 Group Premium Calculator</h2>
+                    <div class="status-indicator" id="group-status">
+                        <span class="pulse"></span> Live
+                    </div>
+                </div>
+
+                <div class="panel-body split-layout">
+                    <!-- Input Column -->
+                    <div class="input-column">
+                        <h3 class="column-title">Inputs</h3>
+                        
+                        <div class="input-group">
+                            <label for="num_employees">Number of Employees</label>
+                            <div class="control-wrapper">
+                                <input type="number" id="num_employees" value="50" min="1" max="500" step="1">
+                                <input type="range" id="num_employees_slider" value="50" min="1" max="500" step="1">
+                                <span class="value-display" id="num_employees_display">50</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="avg_salary">Average Annual Salary ($)</label>
+                            <div class="control-wrapper">
+                                <input type="number" id="avg_salary" value="60000" min="20000" max="200000" step="1000">
+                                <input type="range" id="avg_salary_slider" value="60000" min="20000" max="200000" step="1000">
+                                <span class="value-display" id="avg_salary_display">$60,000</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="avg_age">Average Age (years)</label>
+                            <div class="control-wrapper">
+                                <input type="number" id="avg_age" value="40" min="20" max="70" step="1">
+                                <input type="range" id="avg_age_slider" value="40" min="20" max="70" step="1">
+                                <span class="value-display" id="avg_age_display">40</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="avg_service">Average Service Years</label>
+                            <div class="control-wrapper">
+                                <input type="number" id="avg_service" value="10" min="0" max="40" step="1">
+                                <input type="range" id="avg_service_slider" value="10" min="0" max="40" step="1">
+                                <span class="value-display" id="avg_service_display">10</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="retirement_age_group">Retirement Age</label>
+                            <div class="control-wrapper">
+                                <input type="number" id="retirement_age_group" value="65" min="55" max="75" step="1">
+                                <input type="range" id="retirement_age_group_slider" value="65" min="55" max="75" step="1">
+                                <span class="value-display" id="retirement_age_group_display">65</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="benefit_accrual">Benefit Accrual Rate (%)</label>
+                            <div class="control-wrapper">
+                                <input type="number" id="benefit_accrual" value="1.5" min="0.5" max="5.0" step="0.1">
+                                <input type="range" id="benefit_accrual_slider" value="1.5" min="0.5" max="5.0" step="0.1">
+                                <span class="value-display" id="benefit_accrual_display">1.5%</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="discount_rate">Discount Rate (%)</label>
+                            <div class="control-wrapper">
+                                <input type="number" id="discount_rate" value="7.0" min="2.0" max="15.0" step="0.1">
+                                <input type="range" id="discount_rate_slider" value="7.0" min="2.0" max="15.0" step="0.1">
+                                <span class="value-display" id="discount_rate_display">7.0%</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="mortality_factor">Mortality Factor</label>
+                            <div class="control-wrapper">
+                                <input type="number" id="mortality_factor" value="0.95" min="0.7" max="1.0" step="0.01">
+                                <input type="range" id="mortality_factor_slider" value="0.95" min="0.7" max="1.0" step="0.01">
+                                <span class="value-display" id="mortality_factor_display">0.95</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="salary_growth">Salary Growth Rate (%)</label>
+                            <div class="control-wrapper">
+                                <input type="number" id="salary_growth" value="3.0" min="0.0" max="10.0" step="0.1">
+                                <input type="range" id="salary_growth_slider" value="3.0" min="0.0" max="10.0" step="0.1">
+                                <span class="value-display" id="salary_growth_display">3.0%</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="admin_cost">Administrative Cost (%)</label>
+                            <div class="control-wrapper">
+                                <input type="number" id="admin_cost" value="5.0" min="0.0" max="20.0" step="0.5">
+                                <input type="range" id="admin_cost_slider" value="5.0" min="0.0" max="20.0" step="0.5">
+                                <span class="value-display" id="admin_cost_display">5.0%</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="employer_contrib">Employer Contribution (%)</label>
+                            <div class="control-wrapper">
+                                <input type="number" id="employer_contrib" value="12.0" min="5.0" max="30.0" step="0.5">
+                                <input type="range" id="employer_contrib_slider" value="12.0" min="5.0" max="30.0" step="0.5">
+                                <span class="value-display" id="employer_contrib_display">12.0%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Output Column -->
+                    <div class="output-column">
+                        <h3 class="column-title">Outputs</h3>
+                        
+                        <div class="result-card highlight">
+                            <div class="result-label">Final Salary</div>
+                            <div class="result-value" id="final_salary_out">$0.00</div>
+                        </div>
+
+                        <div class="result-card highlight">
+                            <div class="result-label">Annual Pension</div>
+                            <div class="result-value" id="annual_pension_out">$0.00</div>
+                        </div>
+
+                        <div class="result-card highlight">
+                            <div class="result-label">Monthly Pension</div>
+                            <div class="result-value" id="monthly_pension_out">$0.00</div>
+                        </div>
+
+                        <div class="result-card primary editable">
+                            <div class="result-label">Annual Premium 🎚️</div>
+                            <div class="result-value" id="annual_premium_out">$0.00</div>
+                            <div class="output-slider-wrapper">
+                                <input type="range" id="annual_premium_slider" min="10000" max="1000000" step="1000" value="50000">
+                                <span class="value-display-small" id="annual_premium_slider_display">Drag</span>
+                            </div>
+                        </div>
+
+                        <div class="result-card primary">
+                            <div class="result-label">Monthly Premium</div>
+                            <div class="result-value" id="monthly_premium_out">$0.00</div>
+                        </div>
+
+                        <div class="result-card">
+                            <div class="result-label">Years to Retire</div>
+                            <div class="result-value" id="years_to_retirement">0</div>
+                        </div>
+
+                        <div class="result-card">
+                            <div class="result-label">Employer Contrib</div>
+                            <div class="result-value" id="employer_contribution">$0.00</div>
+                        </div>
+
+                        <div class="result-card">
+                            <div class="result-label">Funding Gap</div>
+                            <div class="result-value" id="funding_gap">$0.00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Individual Benefit Projection -->
+            <div class="panel individual-panel">
+                <div class="panel-header">
+                    <h2>👤 Individual Benefit Projection</h2>
+                    <div class="status-indicator" id="individual-status">
+                        <span class="pulse"></span> Live
+                    </div>
+                </div>
+
+                <div class="panel-body split-layout">
+                    <!-- Input Column -->
+                    <div class="input-column">
+                        <h3 class="column-title">Inputs</h3>
+                        
+                        <div class="input-group">
+                            <label for="emp_name">Employee Name</label>
+                            <input type="text" id="emp_name" value="John Doe" class="text-input">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="emp_id">Employee ID</label>
+                            <input type="text" id="emp_id" value="EMP001" class="text-input">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="current_age">Current Age (years)</label>
+                            <div class="control-wrapper">
+                                <input type="number" id="current_age" value="35" min="18" max="70" step="1">
+                                <input type="range" id="current_age_slider" value="35" min="18" max="70" step="1">
+                                <span class="value-display" id="current_age_display">35</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="retirement_age">Retirement Age (years)</label>
+                            <div class="control-wrapper">
+                                <input type="number" id="retirement_age" value="65" min="55" max="75" step="1">
+                                <input type="range" id="retirement_age_slider" value="65" min="55" max="75" step="1">
+                                <span class="value-display" id="retirement_age_display">65</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="current_salary">Current Salary ($)</label>
+                            <div class="control-wrapper">
+                                <input type="number" id="current_salary" value="75000" min="20000" max="300000" step="1000">
+                                <input type="range" id="current_salary_slider" value="75000" min="20000" max="300000" step="1000">
+                                <span class="value-display" id="current_salary_display">$75,000</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="years_service">Years of Service</label>
+                            <div class="control-wrapper">
+                                <input type="number" id="years_service" value="8" min="0" max="45" step="1">
+                                <input type="range" id="years_service_slider" value="8" min="0" max="45" step="1">
+                                <span class="value-display" id="years_service_display">8</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="salary_growth_ind">Salary Growth (%)</label>
+                            <div class="control-wrapper">
+                                <input type="number" id="salary_growth_ind" value="3.5" min="0.0" max="10.0" step="0.1">
+                                <input type="range" id="salary_growth_ind_slider" value="3.5" min="0.0" max="10.0" step="0.1">
+                                <span class="value-display" id="salary_growth_ind_display">3.5%</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="benefit_rate">Benefit Accrual Rate (%)</label>
+                            <div class="control-wrapper">
+                                <input type="number" id="benefit_rate" value="1.5" min="0.5" max="5.0" step="0.1">
+                                <input type="range" id="benefit_rate_slider" value="1.5" min="0.5" max="5.0" step="0.1">
+                                <span class="value-display" id="benefit_rate_display">1.5%</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="interest_rate">Interest Rate (%)</label>
+                            <div class="control-wrapper">
+                                <input type="number" id="interest_rate" value="6.5" min="2.0" max="15.0" step="0.1">
+                                <input type="range" id="interest_rate_slider" value="6.5" min="2.0" max="15.0" step="0.1">
+                                <span class="value-display" id="interest_rate_display">6.5%</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="inflation_rate">Inflation Rate (%)</label>
+                            <div class="control-wrapper">
+                                <input type="number" id="inflation_rate" value="2.5" min="0.0" max="8.0" step="0.1">
+                                <input type="range" id="inflation_rate_slider" value="2.5" min="0.0" max="8.0" step="0.1">
+                                <span class="value-display" id="inflation_rate_display">2.5%</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="life_expectancy">Life Expectancy (years)</label>
+                            <div class="control-wrapper">
+                                <input type="number" id="life_expectancy" value="85" min="70" max="100" step="1">
+                                <input type="range" id="life_expectancy_slider" value="85" min="70" max="100" step="1">
+                                <span class="value-display" id="life_expectancy_display">85</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Output Column -->
+                    <div class="output-column">
+                        <h3 class="column-title">Outputs</h3>
+                        
+                        <div class="result-card">
+                            <div class="result-label">Name</div>
+                            <div class="result-value" style="font-size: 0.85rem;">John Doe</div>
+                        </div>
+                        
+                        <div class="result-card">
+                            <div class="result-label">ID</div>
+                            <div class="result-value" style="font-size: 0.85rem;">EMP001</div>
+                        </div>
+                        
+                        <div class="result-card highlight">
+                            <div class="result-label">Salary @ Retire</div>
+                            <div class="result-value" id="salary_retirement_out">$0.00</div>
+                        </div>
+
+                        <div class="result-card primary editable">
+                            <div class="result-label">Monthly Pension 🎚️</div>
+                            <div class="result-value" id="monthly_pension_ind_out">$0.00</div>
+                            <div class="output-slider-wrapper">
+                                <input type="range" id="monthly_pension_ind_slider" min="500" max="30000" step="100" value="2500">
+                                <span class="value-display-small" id="monthly_pension_ind_slider_display">Drag</span>
+                            </div>
+                        </div>
+
+                        <div class="result-card primary">
+                            <div class="result-label">Annual Pension</div>
+                            <div class="result-value" id="annual_pension_ind_out">$0.00</div>
+                        </div>
+
+                        <div class="result-card highlight">
+                            <div class="result-label">Replace Ratio</div>
+                            <div class="result-value" id="replacement_ratio_out">0%</div>
+                        </div>
+
+                        <div class="result-card">
+                            <div class="result-label">Lifetime Pension</div>
+                            <div class="result-value" id="lifetime_pension_out">$0.00</div>
+                        </div>
+
+                        <div class="result-card">
+                            <div class="result-label">Yrs to Retire</div>
+                            <div class="result-value" id="years_to_retirement_ind">0</div>
+                        </div>
+
+                        <div class="result-card">
+                            <div class="result-label">Service Years</div>
+                            <div class="result-value" id="total_service_years">0</div>
+                        </div>
+
+                        <div class="result-card">
+                            <div class="result-label">PV Today</div>
+                            <div class="result-value" id="pv_today">$0.00</div>
+                        </div>
+
+                        <div class="result-card">
+                            <div class="result-label">Real Monthly</div>
+                            <div class="result-value" id="real_monthly_pension">$0.00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
